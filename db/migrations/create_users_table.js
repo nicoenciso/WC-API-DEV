@@ -5,12 +5,10 @@ const createUsersTable = `
         email VARCHAR(100) UNIQUE NOT NULL,
         first_name VARCHAR(100),
         last_name VARCHAR(100),
-        birth_date VARCHAR(100),
         imageUrl TEXT NOT NULL,
         skills VARCHAR(500),
         description VARCHAR(500),
-        followers INTEGER DEFAULT 0,
-        followed INTEGER DEFAULT 0,
+        onboarding_state BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
