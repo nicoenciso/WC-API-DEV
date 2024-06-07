@@ -78,7 +78,7 @@ postRouter.get("/:id", async (req, res) => {
 });
 
 // Devuelve un post mediante búsqueda incremental
-posRouter.get("/search", async (req, res) => {
+postRouter.get("/search", async (req, res) => {
   try {
     const search = req.query.search;
     const searchedPosts = await getPostsBySearch(search);
