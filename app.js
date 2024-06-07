@@ -1,9 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
-import Routes from "./routes/index.js";
+import Routes from "./controllers/index.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,

@@ -1,4 +1,3 @@
+# Ignore .env file containing credentials
+.env
 /node_modules
-.prettierignore
-.replit
-replit.nix

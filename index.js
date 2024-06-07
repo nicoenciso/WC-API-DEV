@@ -5,7 +5,7 @@ import runDbMigrations from "./db/migrations/index.js";
 async function start() {
   await runDbMigrations();
 
-  const port = process.env.PORT || 7000;
+  const port = 3000;
   app.listen(port, () => {
     console.log(`App running on port ${port}.🚀`);
   });
