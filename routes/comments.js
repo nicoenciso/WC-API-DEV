@@ -3,13 +3,13 @@ import {
   createComment,
   getCommentsByPostId,
   updateComment,
-  deleteComment
+  deleteComment,
 } from "../handlers/comments.js";
 
-const commentRouter = Router();
+const commentsRouter = Router();
 
 // Publica un nuevo comentario en un post específico
-commentRouter.post("/:postId", async (req, res) => {
+commentsRouter.post("/:postId", async (req, res) => {
   try {
     const postId = req.params.postId;
     const { content, userId } = req.body;
@@ -22,7 +22,7 @@ commentRouter.post("/:postId", async (req, res) => {
 });
 
 // Obtiene todos los comentarios de un post específico
-commentRouter.get("/:postId", async (req, res) => {
+commentsRouter.get("/:postId", async (req, res) => {
   try {
     const { postId } = req.params;
     const comments = await getCommentsByPostId(postId);
@@ -34,7 +34,7 @@ commentRouter.get("/:postId", async (req, res) => {
 });
 
 // Actualiza un comentario por su id
-commentRouter.put("/update/:id", async (req, res) => {
+commentsRouter.put("/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const { content } = req.body;
@@ -47,7 +47,7 @@ commentRouter.put("/update/:id", async (req, res) => {
 });
 
 // Elimina un comentario por su id
-commentRouter.delete("/delete/:id", async (req, res) => {
+commentsRouter.delete("/delete/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const result = await deleteComment(id);
@@ -58,4 +58,4 @@ commentRouter.delete("/delete/:id", async (req, res) => {
   }
 });
 
-export default commentRouter;
+export default commentsRouter;

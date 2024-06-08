@@ -37,4 +37,4 @@ export const deleteComment = async (id) => {
   const result = await pool.query("DELETE FROM Comments WHERE id=$1", [id]);
   console.log("Comment deleted");
   return result;
-}
+};

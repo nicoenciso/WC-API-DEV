@@ -31,7 +31,7 @@ export const clerkWebhookHandler = async (payload, headers) => {
   // Actualiza un usuario en la base de datos
   if (eventType === "user.updated") {
     updateUser(id, {
-      username: attibutes?.username,
+      username: attributes?.username,
       first_name: attributes?.first_name,
       last_name: attributes?.last_name,
       imageUrl: attributes?.image_url,

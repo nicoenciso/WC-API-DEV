@@ -5,10 +5,11 @@ import {
   getPostsByUserId,
   getPostsByTag,
   getPostById,
-  getPostBySearch,
+  getPostsBySearch,
   updatePost,
   deletePost,
 } from "../handlers/posts.js";
+import bodyParser from "body-parser";
 
 const postRouter = Router();
 
@@ -52,11 +53,11 @@ postRouter.get("/user/:id", async (req, res) => {
 });
 
 // Devuelve los posts por un tag en específico
-postRouter.get("/", async (req, res) => {
+postRouter.get("/tag/:tag", async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
     const offset = parseInt(req.query.offset) || 0;
-    const tag = req.query.tag;
+    const tag = req.params.tag;
     const posts = await getPostsByTag(tag, limit, offset);
     res.send(posts);
   } catch (error) {
@@ -78,10 +79,10 @@ postRouter.get("/:id", async (req, res) => {
 });
 
 // Devuelve un post mediante búsqueda incremental
-postRouter.get("/search", async (req, res) => {
+postRouter.get("/search/:searchParam", async (req, res) => {
   try {
-    const search = req.query.search;
-    const searchedPosts = await getPostsBySearch(search);
+    const searchParam = req.params.searchParam;
+    const searchedPosts = await getPostsBySearch(searchParam);
     res.send(searchedPosts);
   } catch (error) {
     console.error(error);
