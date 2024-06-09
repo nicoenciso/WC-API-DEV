@@ -1,6 +1,3 @@
-
-
-
 import { pool } from "../connection.js";
 import createUsersTable from "./create_users_table.js";
 import createPostsTable from "./create_posts_table.js";
@@ -15,7 +12,7 @@ import createCommentsTable from "./create_comments_table.js";
 
   try {
     await client.query("BEGIN");
-
+// Crea las tablas en la base de datos
     await client.query(createUsersTable);
     await client.query(createPostsTable); 
     await client.query(createCommentsTable);
