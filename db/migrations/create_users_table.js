@@ -5,7 +5,7 @@ const createUsersTable = `
         email VARCHAR(100) UNIQUE NOT NULL,
         first_name VARCHAR(100),
         last_name VARCHAR(100),
-        imageUrl TEXT NOT NULL,
+        image_url TEXT NOT NULL,
         skills VARCHAR(500),
         description VARCHAR(500),
         onboarding_state BOOLEAN DEFAULT FALSE,

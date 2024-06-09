@@ -41,10 +41,10 @@ postRouter.get("/", async (req, res) => {
 // Devuelve los posts por id del usuario
 postRouter.get("/user/:id", async (req, res) => {
   try {
-    const userId = req.params.id;
+    const user_id = req.params.id;
     const limit = parseInt(req.query.limit) || 10;
     const offset = parseInt(req.query.offset) || 0;
-    const posts = await getPostsByUserId(userId, limit, offset);
+    const posts = await getPostsByUserId(user_id, limit, offset);
     res.send(posts);
   } catch (error) {
     console.error(error);

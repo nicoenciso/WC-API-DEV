@@ -2,10 +2,10 @@ import { pool } from "../db/connection.js";
 
 // Publica un nuevo contenido
 export const createPost = async (post) => {
-  const { title, content, userId, imageUrl, tags } = post;
+  const { title, content, user_id, image_url, tags } = post;
   const result = await pool.query(
-    "INSERT INTO Posts (title, content, userId, imageUrl, tags) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
-    [title, content, userId, imageUrl, tags]
+    "INSERT INTO Posts (title, content, user_id, image_url, tags) VALUES ($1, $2, $3, $4, $5) RETURNING *;",
+    [title, content, user_id, image_url, tags]
   );
   console.log("Post created: ");
   console.log(result.rows);
@@ -24,12 +24,12 @@ export const getPosts = async (limit, offset) => {
 };
 
 // Devuelve los posts por id del usuario
-export const getPostsByUserId = async (userId, limit, offset) => {
+export const getPostsByUserId = async (user_id, limit, offset) => {
   const result = await pool.query(
-    "SELECT * FROM Posts WHERE userId = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3;",
-    [userId, limit, offset]
+    "SELECT * FROM Posts WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3;",
+    [user_id, limit, offset]
   );
-  console.log(`Posts by user ${userId}: `);
+  console.log(`Posts by user ${user_id}: `);
   console.log(result.rows);
   return result.rows;
 };
@@ -46,18 +46,15 @@ export const getPostsByTag = async (tag, limit, offset) => {
 };
 
 //Devuelve un post por su id
-export const getPostById = async (limit, offset, userId) => {
-  const result = await pool.query(
-    "SELECT * FROM Posts WHERE id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3;",
-    [id, limit, offset]
-  );
+export const getPostById = async (user_id) => {
+  const result = await pool.query("SELECT * FROM Posts WHERE id = $1;", [id]);
   console.log("Post: ");
   console.log(result.rows);
   return result.rows;
 };
 
 // Devuelve un post mediante búsqueda incremental
-export const getPostsBySearch = async (search, limit, offset) => {
+export const getPostsBySearch = async (search) => {
   const result = await pool.query(
     "SELECT * FROM Posts WHERE title ILIKE $1 ORDER BY created_at DESC;",
     [`${search}%`]
@@ -69,10 +66,10 @@ export const getPostsBySearch = async (search, limit, offset) => {
 
 // Actualiza un post por su id
 export const updatePost = async (id, post) => {
-  const { title, content, imageUrl, tags } = post;
+  const { title, content, image_url, tags } = post;
   const result = await pool.query(
-    "UPDATE Posts SET title=$1, content=$2, imageUrl=$3, tags=$4, updated_at=CURRENT_TIMESTAMP WHERE id=$5 RETURNING *;",
-    [title, content, imageUrl, tags, id]
+    "UPDATE Posts SET title=$1, content=$2, image_url=$3, tags=$4, updated_at=CURRENT_TIMESTAMP WHERE id=$5 RETURNING *;",
+    [title, content, image_url, tags, id]
   );
   console.log("Post updated");
   console.log(result.rows);

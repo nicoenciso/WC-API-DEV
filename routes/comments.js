@@ -11,9 +11,9 @@ const commentsRouter = Router();
 // Publica un nuevo comentario en un post específico
 commentsRouter.post("/:postId", async (req, res) => {
   try {
-    const postId = req.params.postId;
-    const { content, userId } = req.body;
-    const createdComment = await createComment(content, userId, postId);
+    const post_id = req.params.postId;
+    const { content, user_id } = req.body;
+    const createdComment = await createComment(content, user_id, post_id);
     res.send(createdComment);
   } catch (error) {
     console.error(error);
@@ -24,8 +24,8 @@ commentsRouter.post("/:postId", async (req, res) => {
 // Obtiene todos los comentarios de un post específico
 commentsRouter.get("/:postId", async (req, res) => {
   try {
-    const { postId } = req.params;
-    const comments = await getCommentsByPostId(postId);
+    const post_id = req.params.postId;
+    const comments = await getCommentsByPostId(post_id);
     res.send(comments);
   } catch (error) {
     console.error(error);

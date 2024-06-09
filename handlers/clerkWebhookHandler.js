@@ -24,7 +24,7 @@ export const clerkWebhookHandler = async (payload, headers) => {
       email: emailObj?.email_address,
       first_name: attributes?.first_name,
       last_name: attributes?.last_name,
-      imageUrl: attributes?.image_url,
+      image_url: attributes?.image_url,
     });
   }
 
@@ -34,7 +34,7 @@ export const clerkWebhookHandler = async (payload, headers) => {
       username: attributes?.username,
       first_name: attributes?.first_name,
       last_name: attributes?.last_name,
-      imageUrl: attributes?.image_url,
+      image_url: attributes?.image_url,
     });
   }
 

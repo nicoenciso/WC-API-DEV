@@ -1,10 +1,10 @@
 import { pool } from "../db/connection.js";
 
 // Publica un nuevo comentario en un post específico
-export const createComment = async (content, userId, postId) => {
+export const createComment = async (content, user_id, post_id) => {
   const result = await pool.query(
-    "INSERT INTO Comments (content, userId, postId) VALUES ($1, $2, $3) RETURNING *;",
-    [content, userId, postId]
+    "INSERT INTO Comments (content, user_id, post_id) VALUES ($1, $2, $3) RETURNING *;",
+    [content, user_id, post_id]
   );
   console.log("Comment created: ");
   console.log(result.rows);
@@ -12,9 +12,9 @@ export const createComment = async (content, userId, postId) => {
 };
 
 // Devuelve todos los comentarios de un post específico
-export const getCommentsByPostId = async (postId) => {
-  const result = await pool.query("SELECT * FROM Comments WHERE postId=$1;", [
-    postId,
+export const getCommentsByPostId = async (post_id) => {
+  const result = await pool.query("SELECT * FROM Comments WHERE post_id=$1;", [
+    post_id,
   ]);
   console.log("Comments for post: ");
   console.log(result.rows);
