@@ -1,6 +1,7 @@
 import usersRouter from "./users.js";
 import postsRouter from "./posts.js";
 import commentsRouter from "./comments.js";
+import tagRouter from "./tags.js";
 import clerkWebhookRouter from "./clerkWebhook.js";
 import { Router } from "express";
 import express from "express";
@@ -20,6 +21,9 @@ const Routes = (app) => {
 
   // Ruta manejo de comentarios
   apiRouter.use("/comments", commentsRouter);
+
+  // Ruta manejo de tags
+  apiRouter.use("/tags", tagRouter);
 
   // Ruta Clerk Webhook
   app.use("/api/v1/webhooks", clerkWebhookRouter);

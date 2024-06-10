@@ -9,7 +9,6 @@ import {
   updatePost,
   deletePost,
 } from "../handlers/posts.js";
-import bodyParser from "body-parser";
 
 const postRouter = Router();
 
