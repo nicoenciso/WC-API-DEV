@@ -15,3 +15,5 @@ const createUsersTable = `
 `;
 
 export default createUsersTable;
+
+// Path: db/migrations/create_comments_table.js
