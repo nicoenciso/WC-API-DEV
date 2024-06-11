@@ -42,12 +42,15 @@ export const getFollowing = async (id) => {
 
 // Obtener los posts de los usuarios seguidos por un usuario
 export const getFollowedUsersPosts = async (id) => {
-  const result = await pool.query(`
+  const result = await pool.query(
+    `
     SELECT Posts.* FROM Posts
     JOIN Followers ON Posts.user_id = Followers.followed_id
     WHERE Followers.follower_id = $1
     ORDER BY Posts.created_at DESC;
-  `, [id]);
+  `,
+    [id]
+  );
   console.log("Followed users' posts: ", result.rows);
   return result.rows;
 };

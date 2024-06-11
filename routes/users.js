@@ -3,6 +3,7 @@ import {
   createUser,
   getUsers,
   getUser,
+  getUserByUsername,
   updateUser,
   deleteUser,
 } from "../handlers/users.js";
@@ -21,7 +22,7 @@ usersRouter.post("/", async (req, res) => {
   }
 });
 
-// Devuelve todos los usuarios
+// Devuelve todos los usuarios (añadido el campo "followers_count" y "following_count")
 usersRouter.get("/", async (req, res) => {
   try {
     const users = await getUsers();
@@ -32,7 +33,7 @@ usersRouter.get("/", async (req, res) => {
   }
 });
 
-// Devuelve un usuario por su id
+// Devuelve un usuario por su id (añadido el campo "followers_count" y "following_count")
 usersRouter.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -41,6 +42,18 @@ usersRouter.get("/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error fetching user by id");
+  }
+});
+
+// Devuelve los usuarios por su nombre de usuario (añadido el campo "followers_count" y "following_count")
+usersRouter.get("/user/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const user = await getUserByUsername(username);
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error fetching user by username");
   }
 });
 

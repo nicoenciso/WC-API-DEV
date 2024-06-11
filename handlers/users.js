@@ -12,18 +12,34 @@ export const createUser = async (user) => {
   return result.rows;
 };
 
-// Devuelve todos los usuarios
+// Devuelve todos los usuarios (añadido el campo "followers_count" y "following_count")
 export const getUsers = async () => {
-  const result = await pool.query("SELECT * FROM Users;");
+  const result = await pool.query(
+    "SELECT u.*, COUNT(DISTINCT f1.followed_id) AS following_count, COUNT(DISTINCT f2.follower_id) AS followers_count FROM Users u LEFT JOIN Followers f1 ON u.id = f1.follower_id LEFT JOIN Followers f2 ON u.id = f2.followed_id GROUP BY u.id;"
+  );
   console.log("Users table: ");
   console.log(result.rows);
   return result.rows;
 };
 
-// Devuelve un usuario por su id
+// Devuelve un usuario por su id (añadido el campo "followers_count" y "following_count")
 export const getUser = async (id) => {
-  const result = await pool.query("SELECT * FROM Users WHERE id=$1;", [id]);
+  const result = await pool.query(
+    "SELECT u.*, COUNT(DISTINCT f1.followed_id) AS following_count, COUNT(DISTINCT f2.follower_id) AS followers_count FROM Users u LEFT JOIN Followers f1 ON u.id = f1.follower_id LEFT JOIN Followers f2 ON u.id = f2.followed_id WHERE id=$1 GROUP BY u.id;",
+    [id]
+  );
   console.log("User: ");
+  console.log(result.rows);
+  return result.rows;
+};
+
+// Devuelve los usuarios por su nombre de usuario (añadido el campo "followers_count" y "following_count")
+export const getUserByUsername = async (username) => {
+  const result = await pool.query(
+    "SELECT u.*, COUNT(DISTINCT f1.followed_id) AS following_count, COUNT(DISTINCT f2.follower_id) AS followers_count FROM Users u LEFT JOIN Followers f1 ON u.id = f1.follower_id LEFT JOIN Followers f2 ON u.id = f2.followed_id WHERE username=$1 GROUP BY u.id;",
+    [username]
+  );
+  console.log("User by username: ");
   console.log(result.rows);
   return result.rows;
 };

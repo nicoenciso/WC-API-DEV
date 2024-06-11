@@ -17,7 +17,7 @@ const runDbMigrations = async () => {
     await client.query(createUsersTable);
     await client.query(createCommentsTable);
     await client.query(createPostsTable);
-    await client.query( createFollowersTable)
+    await client.query(createFollowersTable);
     await client.query("COMMIT"); // Crea la tabla
 
     console.log("END DB MIGRATION");
