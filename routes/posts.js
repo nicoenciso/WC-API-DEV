@@ -20,7 +20,7 @@ postRouter.post("/", async (req, res) => {
     res.send(createdPost);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error creating post");
+    res.status(500).send("Error creating post", error);
   }
 });
 

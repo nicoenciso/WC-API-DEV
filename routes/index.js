@@ -27,7 +27,7 @@ const Routes = (app) => {
   apiRouter.use("/tags", tagRouter);
   
   //
-apiRouter.use ("/followers" , followersRouter);
+  apiRouter.use ("/followers" , followersRouter);
   // Ruta Clerk Webhook
   app.use("/api/v1/webhooks", clerkWebhookRouter);
 
