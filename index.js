@@ -1,7 +1,7 @@
 import app from "./app.js";
 import runDbMigrations from "./db/migrations/index.js";
 
-//Lanzamiento asíncrono del servidor
+// Lanzamiento asíncrono del servidor
 async function start() {
   await runDbMigrations();
 

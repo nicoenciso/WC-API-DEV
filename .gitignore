@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 # Ignore .env file containing credentials
 .env
 /node_modules
+=======
+/node_modules
+.env
+.prettierignore
+.replit
+replit.nix
+>>>>>>> 5b420d218c59f017f80e90d89ab2a5a1755e43a3

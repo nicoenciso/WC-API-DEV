@@ -4,6 +4,9 @@ import createPostsTable from "./create_posts_table.js";
 import createCommentsTable from "./create_comments_table.js";
  import createFollowersTable from "./create_followers_table.js";
 
+import createCommentsTable from "./create_comments_table.js";
+import createPostsTable from "./create_posts_table.js";
+
  const runDbMigrations = async () => {
   console.log("BEGIN DB MIGRATION");
 
