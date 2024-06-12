@@ -82,3 +82,5 @@ export const deletePost = async (id) => {
   console.log("Post deleted");
   return result;
 };
+
+
