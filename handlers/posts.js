@@ -34,10 +34,10 @@ export const getPostsByUserId = async (user_id, limit, offset) => {
   return result.rows;
 };
 
-// Devuelve los posts por un tag en específico
-export const getPostsByTag = async (tag, limit, offset) => {
+// Devuelve los posts por un tag en específico (añadido autor)
+export const getPostsByTag = async (tag, limit = 10, offset = 0) => {
   const result = await pool.query(
-    "SELECT * FROM Posts WHERE $1 = ANY(STRING_TO_ARRAY(tags, ',')) ORDER BY created_at DESC LIMIT $2 OFFSET $3;",
+    "SELECT p.*, u.username AS autor_username, u.first_name AS autor_first_name, u.last_name AS autor_lastname, u.image_url AS autor_image_url FROM Posts p JOIN Users u ON p.user_id = u.id WHERE $1 = ANY(STRING_TO_ARRAY(p.tags, ',')) ORDER BY p.created_at DESC LIMIT $2 OFFSET $3;",
     [tag, limit, offset]
   );
   console.log(`Posts by tag ${tag}: `);
