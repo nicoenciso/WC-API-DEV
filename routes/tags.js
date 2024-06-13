@@ -3,6 +3,7 @@ import { getTags } from "../handlers/tags.js";
 
 const tagRouter = Router();
 
+// Devuelve los tags ordenados por la cantidad de post creados con ese tag (opcionalmente con un limite de cantidad)
 tagRouter.get("/", async (req, res) => {
   try {
     const limit = req.query.limit || 10;

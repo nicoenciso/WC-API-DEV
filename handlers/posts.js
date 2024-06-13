@@ -12,10 +12,10 @@ export const createPost = async (post) => {
   return result.rows;
 };
 
-// Devuelve todos los posts
+// Devuelve todos los posts (añadido autor)
 export const getPosts = async (limit, offset) => {
   const result = await pool.query(
-    "SELECT * FROM Posts ORDER BY created_at DESC LIMIT $1 OFFSET $2;",
+    "SELECT p.*, u.username AS autor_username, u.first_name AS autor_first_name, u.last_name AS autor_lastname, u.image_url AS autor_image_url FROM Posts p JOIN Users u ON p.user_id = u.id ORDER BY created_at DESC LIMIT $1 OFFSET $2;",
     [limit, offset]
   );
   console.log("Posts: ");
@@ -23,10 +23,10 @@ export const getPosts = async (limit, offset) => {
   return result.rows;
 };
 
-// Devuelve los posts por id del usuario
+// Devuelve los posts por id del usuario (añadido autor)
 export const getPostsByUserId = async (user_id, limit, offset) => {
   const result = await pool.query(
-    "SELECT * FROM Posts WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3;",
+    "SELECT p.*, u.username AS autor_username, u.first_name AS autor_first_name, u.last_name AS autor_lastname, u.image_url AS autor_image_url FROM Posts p JOIN Users u ON p.user_id = u.id WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3;",
     [user_id, limit, offset]
   );
   console.log(`Posts by user ${user_id}: `);
@@ -45,9 +45,12 @@ export const getPostsByTag = async (tag, limit = 10, offset = 0) => {
   return result.rows;
 };
 
-//Devuelve un post por su id
-export const getPostById = async (user_id) => {
-  const result = await pool.query("SELECT * FROM Posts WHERE id = $1;", [id]);
+//Devuelve un post por su id (añadido autor)
+export const getPostById = async (id) => {
+  const result = await pool.query(
+    "SELECT p.*, u.username AS autor_username, u.first_name AS autor_first_name, u.last_name AS autor_lastname, u.image_url AS autor_image_url FROM Posts p JOIN Users u ON p.user_id = u.id WHERE p.id = $1;",
+    [id]
+  );
   console.log("Post: ");
   console.log(result.rows);
   return result.rows;

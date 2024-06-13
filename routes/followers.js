@@ -6,8 +6,6 @@ import {
   getFollowing,
   getFollowedUsersPosts,
   getTopFollowedUsers,
-  
-  
 } from "../handlers/followers.js";
 
 const followersRouter = Router();

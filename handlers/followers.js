@@ -60,7 +60,6 @@ export const getFollowedUsersPosts = async (id) => {
     console.log(result.rows);
     return result.rows;
   };
-  
 
 // Obtener los cinco usuarios más seguidos
 export const getTopFollowedUsers = async () => {
