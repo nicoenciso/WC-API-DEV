@@ -40,20 +40,26 @@ export const getFollowing = async (id) => {
   return result.rows;
 };
 
-// Obtener los posts de los usuarios seguidos por un usuario
+
+// Obtener los posts de los usuarios seguidos por un usuario con detalles del autor
 export const getFollowedUsersPosts = async (id) => {
-  const result = await pool.query(
-    `
-    SELECT Posts.* FROM Posts
-    JOIN Followers ON Posts.user_id = Followers.followed_id
-    WHERE Followers.follower_id = $1
-    ORDER BY Posts.created_at DESC;
-  `,
-    [id]
-  );
-  console.log("Followed users' posts: ", result.rows);
-  return result.rows;
-};
+    const result = await pool.query(`
+      SELECT 
+        p.*, 
+        u.username AS autor_username, 
+        u.first_name AS autor_first_name, 
+        u.last_name AS autor_last_name, 
+        u.image_url AS autor_image_url 
+      FROM Posts p
+      JOIN Followers f ON p.user_id = f.followed_id
+      JOIN Users u ON p.user_id = u.id
+      WHERE f.follower_id = $1
+      ORDER BY p.created_at DESC;
+    `, [id]);
+    console.log("Followed users' posts: ");
+    console.log(result.rows);
+    return result.rows;
+  };
 
 // Obtener los cinco usuarios más seguidos
 export const getTopFollowedUsers = async () => {
