@@ -24,7 +24,7 @@ postRouter.post("/", async (req, res) => {
   }
 });
 
-// Devuelve todos los posts
+// Devuelve todos los posts (añadido autor)
 postRouter.get("/", async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
@@ -37,7 +37,7 @@ postRouter.get("/", async (req, res) => {
   }
 });
 
-// Devuelve los posts por id del usuario
+// Devuelve los posts por id del usuario (añadido autor)
 postRouter.get("/user/:id", async (req, res) => {
   try {
     const user_id = req.params.id;
@@ -51,7 +51,7 @@ postRouter.get("/user/:id", async (req, res) => {
   }
 });
 
-// Devuelve los posts por un tag en específico
+// Devuelve los posts por un tag en específico (añadido autor)
 postRouter.get("/tag/:tag", async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
@@ -65,7 +65,7 @@ postRouter.get("/tag/:tag", async (req, res) => {
   }
 });
 
-// Devuelve un post por su id
+// Devuelve un post por su id (añadido autor)
 postRouter.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
