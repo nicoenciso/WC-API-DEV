@@ -12,6 +12,8 @@ export const createPost = async (post) => {
   return result.rows;
 };
 
+
+
 // Devuelve todos los posts
 export const getPosts = async (limit, offset) => {
   const result = await pool.query(

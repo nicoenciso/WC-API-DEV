@@ -14,11 +14,12 @@ const runDbMigrations = async () => {
     await client.query("BEGIN"); // Inicio de transacción
 
     await client.query(createUsersTable);
-    await client.query(createCommentsTable);
     await client.query(createPostsTable);
+    await client.query(createCommentsTable);
+
     await client.query( createFollowersTable)
     await client.query("COMMIT"); 
-    
+
     console.log("END DB MIGRATION");
   } catch (e) {
     await client.query("ROLLBACK"); 

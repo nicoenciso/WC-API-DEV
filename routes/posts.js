@@ -113,5 +113,16 @@ postRouter.delete("/delete/:id", async (req, res) => {
     res.status(500).send("Error deleting post");
   }
 });
+// Ruta para crear posts masivos
+postRouter.post('/posts', async (req, res) => {
+  try {
+    const posts = req.body; // Los posts masivos se recibirían en el cuerpo de la solicitud
+    const createdPosts = await Promise.all(posts.map(post => createPost(post)));
+    res.status(201).json(createdPosts);
+  } catch (error) {
+    console.error('Error creating posts:', error);
+    res.status(500).json({ error: 'Error creating posts' });
+  }
+});
 
 export default postRouter;

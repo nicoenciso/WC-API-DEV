@@ -40,27 +40,27 @@ export const getFollowing = async (id) => {
   return result.rows;
 };
 
+// Obtener los posts de los usuarios seguidos por un usuario con detalles del autor y paginación
+export const getFollowedUsersPosts = async (id, offset, limit) => {
+  const result = await pool.query(`
+    SELECT 
+      p.*, 
+      u.username AS autor_username, 
+      u.first_name AS autor_first_name, 
+      u.last_name AS autor_last_name, 
+      u.image_url AS autor_image_url 
+    FROM Posts p
+    JOIN Followers f ON p.user_id = f.followed_id
+    JOIN Users u ON p.user_id = u.id
+    WHERE f.follower_id = $1
+    ORDER BY p.created_at DESC
+    OFFSET $2 LIMIT $3;
+  `, [id, offset, limit]);
+  console.log("Followed users' posts: ");
+  console.log(result.rows);
+  return result.rows;
+};
 
-// Obtener los posts de los usuarios seguidos por un usuario con detalles del autor
-export const getFollowedUsersPosts = async (id) => {
-    const result = await pool.query(`
-      SELECT 
-        p.*, 
-        u.username AS autor_username, 
-        u.first_name AS autor_first_name, 
-        u.last_name AS autor_last_name, 
-        u.image_url AS autor_image_url 
-      FROM Posts p
-      JOIN Followers f ON p.user_id = f.followed_id
-      JOIN Users u ON p.user_id = u.id
-      WHERE f.follower_id = $1
-      ORDER BY p.created_at DESC;
-    `, [id]);
-    console.log("Followed users' posts: ");
-    console.log(result.rows);
-    return result.rows;
-  };
-  
 
 // Obtener los cinco usuarios más seguidos
 export const getTopFollowedUsers = async () => {
@@ -74,4 +74,25 @@ export const getTopFollowedUsers = async () => {
   `);
   console.log("Top followed users: ", result.rows);
   return result.rows;
+};
+
+
+export const getFollowedPosts = async (followerId) => {
+
+const result = await pool.query(
+        `SELECT
+            p.*,
+            u.username AS autor_username,
+            u.first_name AS autor_first_name,
+            u.last_name AS autor_last_name,
+            u.image_url AS autor_image_url
+        FROM Posts p
+        JOIN Followers f ON p.user_id = f.followed_id
+        JOIN Users u ON p.user_id = u.id
+        WHERE f.follower_id = $1
+        ORDER BY p.created_at DESC;`,
+        [followerId]
+    );
+    console.log("Posts de usuarios seguidos: ", result.rows);
+    return result.rows;
 };
