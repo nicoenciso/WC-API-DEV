@@ -41,7 +41,7 @@ export const getFollowing = async (id) => {
 };
 
 // Obtener los posts de los usuarios seguidos por un usuario con detalles del autor y paginación
-export const getFollowedUsersPosts = async (id, offset, limit) => {
+export const getFollowedUsersPosts = async (id, limit, offset) => {
   const result = await pool.query(`
     SELECT 
       p.*, 
@@ -54,8 +54,8 @@ export const getFollowedUsersPosts = async (id, offset, limit) => {
     JOIN Users u ON p.user_id = u.id
     WHERE f.follower_id = $1
     ORDER BY p.created_at DESC
-    OFFSET $2 LIMIT $3;
-  `, [id, offset, limit]);
+    LIMIT $2  OFFSET $3;
+  `, [id, limit, offset]);
   console.log("Followed users' posts: ");
   console.log(result.rows);
   return result.rows;

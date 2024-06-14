@@ -62,13 +62,11 @@ followersRouter.get("/:id/following", async (req, res) => {
 followersRouter.get("/:id/followed_posts", async (req, res) => {
   try {
     const { id } = req.params;
-    const { offset = 0, limit = 10 } = req.query; // valores por defecto para offset y limit
 
-    // Validación de offset y limit
-    const validatedOffset = Math.max(0, parseInt(offset));
-    const validatedLimit = Math.min(50, Math.max(1, parseInt(limit))); // limit máximo de 50 y mínimo de 1
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
 
-    const posts = await getFollowedUsersPosts(id, validatedOffset, validatedLimit);
+    const posts = await getFollowedUsersPosts(id, limit, offset);
     res.send(posts);
   } catch (error) {
     console.error(error);
