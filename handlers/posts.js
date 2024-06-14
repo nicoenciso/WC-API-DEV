@@ -12,13 +12,9 @@ export const createPost = async (post) => {
   return result.rows;
 };
 
-<<<<<<< HEAD
 
 
 // Devuelve todos los posts
-=======
-// Devuelve todos los posts (añadido autor)
->>>>>>> 98e770a40a0f4ec48d441cda08a211eb90130b4d
 export const getPosts = async (limit, offset) => {
   const result = await pool.query(
     "SELECT p.*, u.username AS autor_username, u.first_name AS autor_first_name, u.last_name AS autor_lastname, u.image_url AS autor_image_url FROM Posts p JOIN Users u ON p.user_id = u.id ORDER BY created_at DESC LIMIT $1 OFFSET $2;",
