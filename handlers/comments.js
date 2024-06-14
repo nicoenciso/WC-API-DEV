@@ -13,13 +13,24 @@ export const createComment = async (content, user_id, post_id) => {
 
 // Devuelve todos los comentarios de un post específico
 export const getCommentsByPostId = async (post_id) => {
-  const result = await pool.query("SELECT * FROM Comments WHERE post_id=$1;", [
-    post_id,
-  ]);
+  const result = await pool.query(`
+    SELECT 
+      c.*, 
+      u.username AS autor_username, 
+      u.first_name AS autor_first_name, 
+      u.last_name AS autor_last_name, 
+      u.image_url AS autor_image_url 
+    FROM Comments c
+    JOIN Users u ON c.user_id = u.id
+    WHERE c.post_id = $1
+    ORDER BY c.created_at DESC;
+  `, [post_id]);
+
   console.log("Comments for post: ");
   console.log(result.rows);
   return result.rows;
 };
+
 
 // Actualiza un comentario por su id
 export const updateComment = async (id, content) => {
